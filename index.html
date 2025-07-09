@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ErenSecrets - Create Secret</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #000000, #30007a, #000066);
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
+    textarea, input {
+      width: 90%;
+      max-width: 500px;
+      padding: 12px;
+      margin: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 25px;
+      font-size: 18px;
+      background-color: #00ffcc;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .output {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .link {
+      color: #00ffcc;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>🤫 ErenSecrets</h1>
+  <p>👇 Write your secret message 👇</p>
+
+  <textarea id="secret" placeholder="Type your secret here..."></textarea><br>
+  <input type="text" id="pass" placeholder="Optional password"><br>
+
+  <button onclick="generateLink()">🔗 Generate Link</button>
+
+  <div class="output" id="result"></div>
+
+  <script>
+    function generateLink() {
+      const msg = document.getElementById("secret").value.trim();
+      const pass = document.getElementById("pass").value.trim();
+
+      if (!msg) {
+        alert("Please enter a secret message.");
+        return;
+      }
+
+      const base = "https://eren-yeager-42.github.io/ErenSecrets/view.html";
+      const encoded = encodeURIComponent(btoa(msg));
+      const link = pass
+        ? `${base}?secret=${encoded}&key=${encodeURIComponent(pass)}`
+        : `${base}?secret=${encoded}`;
+
+      document.getElementById("result").innerHTML = `
+        ✅ Secret link generated:<br>
+        <a class="link" href="${link}" target="_blank">${link}</a>
+      `;
+    }
+  </script>
+</body>
+</html>
